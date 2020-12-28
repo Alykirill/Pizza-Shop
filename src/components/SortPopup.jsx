@@ -27,8 +27,6 @@ const SortPopup = ({items,onClickItem}) => {
 
     useEffect(()=>{
         document.body.addEventListener('click', handleClick)
-
-
     }, [])
 
 
