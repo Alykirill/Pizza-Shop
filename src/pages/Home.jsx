@@ -1,22 +1,30 @@
 import React from 'react';
-import { Categories, SortPopup, PizzaBlock } from '../components';
-import {useDispatch, useSelector} from "react-redux";
-import {setCategory} from "../redux/actions/filters";
+import {useDispatch, useSelector} from 'react-redux';
+
+import {Categories, PizzaBlock, SortPopup} from '../components';
+
+import {setCategory} from '../redux/actions/filters';
+import {fetchPizzas} from '../redux/actions/pizzas';
+import {useEffect} from "react/cjs/react.production.min";
 
 const categoryNames = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
 const sortItems = [
-    { name: 'популярности', type: 'popular' },
-    { name: 'цене', type: 'price' },
-    { name: 'алфавит', type: 'alphabet' },
+    {name: 'популярности', type: 'popular'},
+    {name: 'цене', type: 'price'},
+    {name: 'алфавит', type: 'alphabet'},
 ]
 
 function Home() {
     const dispatch = useDispatch();
-    const items = useSelector(({pizzas}) =>pizzas.items)
+    const items = useSelector(({pizzas}) => pizzas.items)
 
-    const onSelectCategory = React.useCallback((index) =>{
+    useEffect(() =>{
+        dispatch(fetchPizzas())
+    },[])
+
+    const onSelectCategory = React.useCallback((index) => {
         dispatch(setCategory(index))
-    },[]);
+    }, []);
 
     return (
         <div className="container">
